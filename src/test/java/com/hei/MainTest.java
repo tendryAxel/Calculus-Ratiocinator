@@ -16,10 +16,10 @@ class MainTest {
 
         var textAVerifier = String.format("%s %s %s", textAffirmation1, conjonction.toString().toLowerCase(), textAffirmation2);
 
-        var affirmation1 = new Affirmation(textAffirmation1, FAUX);
-        var affirmation2 = new Affirmation(textAffirmation2, JENESAISPAS);
+        var estPauvre = new Affirmation(textAffirmation1, FAUX);
+        var estGenereux = new Affirmation(textAffirmation2, JENESAISPAS);
 
-        var result = affirmation1.combiner(conjonction, affirmation2);
+        var result = estPauvre.combiner(conjonction, estGenereux);
 
         assertEquals(textAVerifier, result.getText());
         assertEquals(FAUX, result.getValeurVerite());
@@ -33,10 +33,10 @@ class MainTest {
 
         var textAVerifier = String.format("%s %s %s", textAffirmation1, conjonction.toString().toLowerCase(), textAffirmation2);
 
-        var affirmation1 = new Affirmation(textAffirmation1, VRAIE);
-        var affirmation2 = new Affirmation(textAffirmation2, FAUX);
+        var estBeau = new Affirmation(textAffirmation1, VRAIE);
+        var estPauvre = new Affirmation(textAffirmation2, FAUX);
 
-        var result = affirmation1.combiner(conjonction, affirmation2);
+        var result = estBeau.combiner(conjonction, estPauvre);
 
         assertEquals(textAVerifier, result.getText());
         assertEquals(FAUX, result.getValeurVerite());
@@ -50,10 +50,10 @@ class MainTest {
 
         var textAVerifier = String.format("%s %s %s", textAffirmation1, conjonction.toString().toLowerCase(), textAffirmation2);
 
-        var affirmation1 = new Affirmation(textAffirmation1, FAUX);
-        var affirmation2 = new Affirmation(textAffirmation2, JENESAISPAS);
+        var estPauvre = new Affirmation(textAffirmation1, FAUX);
+        var estGenereux = new Affirmation(textAffirmation2, JENESAISPAS);
 
-        var result = affirmation1.combiner(conjonction, affirmation2);
+        var result = estPauvre.combiner(conjonction, estGenereux);
 
         assertEquals(textAVerifier, result.getText());
         assertEquals(VRAIE, result.getValeurVerite());
@@ -62,21 +62,21 @@ class MainTest {
     @Test
     void exercice4 (){
         var textAffirmation1 = "Lou est beau";
-        var conjonction1 = OU;
+        var conjonctino_ou = OU;
         var textAffirmation2 = "Lou est généreux";
-        var conjonction2 = DONC;
+        var conjonction_donc = DONC;
         var textAffirmation3 = "Lou est pauvre";
 
         var textAVerifier = String.format(
                 "%s %s %s %s %s",
-                textAffirmation1, conjonction1.toString().toLowerCase(), textAffirmation2, conjonction2.toString().toLowerCase(), textAffirmation3
+                textAffirmation1, conjonctino_ou.toString().toLowerCase(), textAffirmation2, conjonction_donc.toString().toLowerCase(), textAffirmation3
         );
 
-        var affirmation1 = new Affirmation(textAffirmation1, VRAIE);
-        var affirmation2 = new Affirmation(textAffirmation2, JENESAISPAS);
-        var affirmation3 = new Affirmation(textAffirmation3, FAUX);
+        var estBeau = new Affirmation(textAffirmation1, VRAIE);
+        var estGenereux = new Affirmation(textAffirmation2, JENESAISPAS);
+        var estPauvre = new Affirmation(textAffirmation3, FAUX);
 
-        var result = affirmation1.combiner(conjonction1, affirmation2).combiner(conjonction2, affirmation3);
+        var result = Affirmation.combiner(estBeau, conjonctino_ou, estGenereux).combiner(conjonction_donc, estPauvre);
 
         assertEquals(textAVerifier, result.getText());
         assertEquals(FAUX, result.getValeurVerite());
@@ -84,11 +84,25 @@ class MainTest {
 
     @Test
     void exercice4_plus_simple (){
-        var affirmation1 = new Affirmation("Lou est beau", VRAIE);
-        var affirmation2 = new Affirmation("Lou est généreux", JENESAISPAS);
-        var affirmation3 = new Affirmation("Lou est pauvre", FAUX);
+        var estBeau = new Affirmation("Lou est beau", VRAIE);
+        var estGenereux = new Affirmation("Lou est généreux", JENESAISPAS);
+        var estPauvre = new Affirmation("Lou est pauvre", FAUX);
 
-        var result = Affirmation.combiner(affirmation1, affirmation2, OU).combiner(DONC, affirmation3);
+        var result = Affirmation.combiner(estBeau, OU, estGenereux).combiner(DONC, estPauvre);
+
+        assertEquals(FAUX, result.getValeurVerite());
+    }
+
+    @Test
+    void exercice5_plus_simple (){
+        var estBeau = new Affirmation("Lou est beau", VRAIE);
+        var estGenereux = new Affirmation("Lou est généreux", JENESAISPAS);
+        var estPauvre = new Affirmation("Lou est pauvre", FAUX);
+
+        var premierement = Affirmation.combiner(estBeau, OU, estGenereux).combiner(DONC, estPauvre);
+        var deuxiemement = Affirmation.combiner(estPauvre, OU, estGenereux);
+
+        var result = Affirmation.combiner(premierement, ET, deuxiemement);
 
         assertEquals(FAUX, result.getValeurVerite());
     }
