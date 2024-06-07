@@ -6,9 +6,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @AllArgsConstructor
+@Getter
 public class Affirmation {
     private final String text;
-    @Getter
     private final ValeurDeVerite valeurVerite;
 
     public Affirmation combiner(Conjonction conjonction, Affirmation autre_affirmation){

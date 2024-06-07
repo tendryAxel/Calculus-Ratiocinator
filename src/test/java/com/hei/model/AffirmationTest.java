@@ -17,6 +17,7 @@ class AffirmationTest {
         assertDoesNotThrow(()->{
             var combinaison = jeNeSaisPas1.combiner(ET, jeNeSaisPas2);
 
+            assertEquals("l'eau est chaude et l'eau est froide", combinaison.getText());
             assertEquals(JENESAISPAS, combinaison.getValeurVerite());
         });
 
