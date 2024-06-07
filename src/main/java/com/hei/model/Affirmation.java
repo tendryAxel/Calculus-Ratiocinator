@@ -11,17 +11,37 @@ public class Affirmation {
     private final String text;
     private final ValeurDeVerite valeurVerite;
 
-    public Affirmation combiner(Conjonction conjonction, Affirmation autre_affirmation){
+    public Affirmation combiner(Conjonction conjonction, Affirmation autreAffirmation){
         ValeurDeVerite nouvelleValeurDeVerite = ValeurDeVerite.JENESAISPAS;;
         if (this.valeurVerite != ValeurDeVerite.JENESAISPAS) {
             switch (conjonction){
-                case ET, OU, DONC -> throw new NotImplemented();
+                case OU -> {
+                    if (this.valeurVerite == ValeurDeVerite.VRAIE || autreAffirmation.valeurVerite == ValeurDeVerite.VRAIE) {
+                        nouvelleValeurDeVerite = ValeurDeVerite.VRAIE;
+                    } else {
+                        nouvelleValeurDeVerite = ValeurDeVerite.FAUX;
+                    }
+                }
+                case ET -> {
+                    if (this.valeurVerite == ValeurDeVerite.VRAIE && autreAffirmation.valeurVerite == ValeurDeVerite.VRAIE) {
+                        nouvelleValeurDeVerite = ValeurDeVerite.VRAIE;
+                    } else {
+                        nouvelleValeurDeVerite = ValeurDeVerite.FAUX;
+                    }
+                }
+                case DONC -> {
+                    if (this.valeurVerite == ValeurDeVerite.VRAIE && autreAffirmation.valeurVerite == ValeurDeVerite.FAUX) {
+                        nouvelleValeurDeVerite = ValeurDeVerite.FAUX;
+                    } else {
+                        nouvelleValeurDeVerite = ValeurDeVerite.VRAIE;
+                    }
+                }
                 case null, default -> throw new ValeurDeVeriteNonDefinie();
             }
         }
 
         return new Affirmation(
-                String.format("%s %s %s", this.text, conjonction.toString().toLowerCase(), autre_affirmation.text),
+                String.format("%s %s %s", this.text, conjonction.toString().toLowerCase(), autreAffirmation.text),
                 nouvelleValeurDeVerite
         );
     }
