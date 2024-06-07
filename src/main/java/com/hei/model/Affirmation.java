@@ -10,7 +10,7 @@ public class Affirmation {
     private final String text;
     private final ValeurDeVerite valeurVerite;
 
-    static ValeurDeVerite combine(ValeurDeVerite valeur1, ValeurDeVerite valeur2, Conjonction conjonction) {
+    static ValeurDeVerite combiner(ValeurDeVerite valeur1, ValeurDeVerite valeur2, Conjonction conjonction) {
         ValeurDeVerite nouvelleValeurDeVerite = ValeurDeVerite.JENESAISPAS;;
         if (valeur1 != ValeurDeVerite.JENESAISPAS) {
             switch (conjonction){
@@ -42,14 +42,14 @@ public class Affirmation {
         return nouvelleValeurDeVerite;
     }
 
-    static Affirmation combine(Affirmation aff1, Affirmation aff2, Conjonction conjonction) {
+    public static Affirmation combiner(Affirmation aff1, Affirmation aff2, Conjonction conjonction) {
         return new Affirmation(
                 String.format("%s %s %s", aff1.text, conjonction.toString().toLowerCase(), aff2.text),
-                combine(aff1.valeurVerite, aff2.valeurVerite, conjonction)
+                combiner(aff1.valeurVerite, aff2.valeurVerite, conjonction)
         );
     }
 
     public Affirmation combiner(Conjonction conjonction, Affirmation autreAffirmation){
-        return combine(this, autreAffirmation, conjonction);
+        return combiner(this, autreAffirmation, conjonction);
     }
 }

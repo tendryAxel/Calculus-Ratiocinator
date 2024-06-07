@@ -81,4 +81,15 @@ class MainTest {
         assertEquals(textAVerifier, result.getText());
         assertEquals(FAUX, result.getValeurVerite());
     }
+
+    @Test
+    void exercice4_plus_simple (){
+        var affirmation1 = new Affirmation("Lou est beau", VRAIE);
+        var affirmation2 = new Affirmation("Lou est généreux", JENESAISPAS);
+        var affirmation3 = new Affirmation("Lou est pauvre", FAUX);
+
+        var result = Affirmation.combiner(affirmation1, affirmation2, OU).combiner(DONC, affirmation3);
+
+        assertEquals(FAUX, result.getValeurVerite());
+    }
 }
