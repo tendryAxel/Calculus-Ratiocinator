@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.hei.model.Conjonction.*;
 import static com.hei.model.ValeurDeVerite.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class AffirmationTest {
@@ -14,12 +13,10 @@ class AffirmationTest {
         var jeNeSaisPas1 = new Affirmation("l'eau est chaude", JENESAISPAS);
         var jeNeSaisPas2 = new Affirmation("l'eau est froide", JENESAISPAS);
 
-        assertDoesNotThrow(()->{
-            var combinaison = jeNeSaisPas1.combiner(ET, jeNeSaisPas2);
+        var combinaison = jeNeSaisPas1.combiner(ET, jeNeSaisPas2);
 
-            assertEquals("l'eau est chaude et l'eau est froide", combinaison.getText());
-            assertEquals(JENESAISPAS, combinaison.getValeurVerite());
-        });
+        assertEquals("l'eau est chaude et l'eau est froide", combinaison.getText());
+        assertEquals(JENESAISPAS, combinaison.getValeurVerite());
     }
 
     @Test
@@ -27,12 +24,10 @@ class AffirmationTest {
         var verite = new Affirmation("le soleil est chaud", VRAIE);
         var faux = new Affirmation("le soleil tourne autour de la terre", FAUX);
 
-        assertDoesNotThrow(()->{
-            var combinaison = verite.combiner(OU, faux);
+        var combinaison = verite.combiner(OU, faux);
 
-            assertEquals("le soleil est chaud ou le soleil tourne autour de la terre", combinaison.getText());
-            assertEquals(VRAIE, combinaison.getValeurVerite());
-        });
+        assertEquals("le soleil est chaud ou le soleil tourne autour de la terre", combinaison.getText());
+        assertEquals(VRAIE, combinaison.getValeurVerite());
     }
 
     @Test
@@ -40,12 +35,10 @@ class AffirmationTest {
         var verite = new Affirmation("le soleil est chaud", VRAIE);
         var autreVerite = new Affirmation("la terre tourne autour du soleil", VRAIE);
 
-        assertDoesNotThrow(()->{
-            var combinaison = verite.combiner(ET, autreVerite);
+        var combinaison = verite.combiner(ET, autreVerite);
 
-            assertEquals("le soleil est chaud et la terre tourne autour du soleil", combinaison.getText());
-            assertEquals(VRAIE, combinaison.getValeurVerite());
-        });
+        assertEquals("le soleil est chaud et la terre tourne autour du soleil", combinaison.getText());
+        assertEquals(VRAIE, combinaison.getValeurVerite());
     }
 
     @Test
@@ -53,12 +46,10 @@ class AffirmationTest {
         var verite = new Affirmation("le soleil est chaud", VRAIE);
         var faux = new Affirmation("le soleil tourne autour de la terre", FAUX);
 
-        assertDoesNotThrow(()->{
-            var combinaison = verite.combiner(ET, faux);
+        var combinaison = verite.combiner(ET, faux);
 
-            assertEquals("le soleil est chaud et le soleil tourne autour de la terre", combinaison.getText());
-            assertEquals(FAUX, combinaison.getValeurVerite());
-        });
+        assertEquals("le soleil est chaud et le soleil tourne autour de la terre", combinaison.getText());
+        assertEquals(FAUX, combinaison.getValeurVerite());
     }
 
     @Test
@@ -66,12 +57,10 @@ class AffirmationTest {
         var verite = new Affirmation("le soleil est chaud", VRAIE);
         var autreVerite = new Affirmation("la terre tourne autour du soleil", VRAIE);
 
-        assertDoesNotThrow(()->{
-            var combinaison = verite.combiner(DONC, autreVerite);
+        var combinaison = verite.combiner(DONC, autreVerite);
 
-            assertEquals("le soleil est chaud donc la terre tourne autour du soleil", combinaison.getText());
-            assertEquals(VRAIE, combinaison.getValeurVerite());
-        });
+        assertEquals("le soleil est chaud donc la terre tourne autour du soleil", combinaison.getText());
+        assertEquals(VRAIE, combinaison.getValeurVerite());
     }
 
     @Test
@@ -79,11 +68,9 @@ class AffirmationTest {
         var verite = new Affirmation("le soleil est chaud", VRAIE);
         var faux = new Affirmation("le soleil tourne autour de la terre", FAUX);
 
-        assertDoesNotThrow(()->{
-            var combinaison = verite.combiner(DONC, faux);
+        var combinaison = verite.combiner(DONC, faux);
 
-            assertEquals("le soleil est chaud donc le soleil tourne autour de la terre", combinaison.getText());
-            assertEquals(FAUX, combinaison.getValeurVerite());
-        });
+        assertEquals("le soleil est chaud donc le soleil tourne autour de la terre", combinaison.getText());
+        assertEquals(FAUX, combinaison.getValeurVerite());
     }
 }
